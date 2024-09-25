@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block content %}
+    <h1>Добро пожаловать, {{ user.username }}!</h1>
+    <p><a href="{% url 'logout' %}">Log out</a></p>
+    <h2>My Notes</h2>
+    <ul>
+      {% for note in notes %}
+        <li><a href="{% url 'note_detail' note.id %}">{{ note.title }}</a></li>
+      {% empty %}
+        <li>Пока нет заметок.</li>
+      {% endfor %}
+    </ul>
+    <p><a href="{% url 'note_new' %}">Создать новую заметку</a></p>
+{% endblock %}

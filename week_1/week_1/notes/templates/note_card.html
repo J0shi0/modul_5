@@ -6,4 +6,10 @@
     <h2>{{ note.title }}</h2>
     <p>{{ note.description }}</p>
     <p>Создано: {{ note.created_at }}</p>
+    <p>Последнее обновление: {{ note.updated_at }}</p>
+    <a href="{% url 'note_edit' note.id %}">Изменить</a>
+    <form method="post" action="{% url 'note_delete' note.id %}">
+        {% csrf_token %}
+        <button type="submit">Удалить</button>
+    </form>
 {% endblock %}
