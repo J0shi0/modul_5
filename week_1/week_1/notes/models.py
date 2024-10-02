@@ -7,8 +7,8 @@ UserModel = get_user_model()
 
 
 class Note(models.Model):
-    title = models.CharField(max_length=200)
-    description = models.TextField()
+    title = models.CharField(max_length=200, verbose_name='Загаловок')
+    description = models.TextField(verbose_name='Описание')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(UserModel, on_delete=models.CASCADE)

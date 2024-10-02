@@ -4,7 +4,7 @@ from .models import Note, UserModel
 from .forms import NoteForm, LoginForm, SignupForm
 from .serializers import NoteSerializer, UserSerializer
 
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, logout
 from django.contrib.auth.forms import AuthenticationForm
 
 from django.shortcuts import render, redirect
@@ -22,8 +22,8 @@ class CustomLoginView(LoginView):
     next_page = reverse_lazy('home')
 
 
-'''class CustomLogoutView(LogoutView):
-    next_page = reverse_lazy('home')'''
+"""class CustomLogoutView(LogoutView):
+    next_page = reverse_lazy('home')"""
 
 
 def home(request):
@@ -50,11 +50,16 @@ def signup(request):
     return render(request, 'home_page.html', {'signup_form': form})
 
 
+def logout_view(request):
+    logout(request)
+    return render(request, 'logout.html')
+
+
 @login_required
 def note_detail(request, note_id):
     note = get_object_or_404(Note, id=note_id, user=request.user)
     context = {'note': note}
-    return render(request, 'note_detail.html', context)
+    return render(request, 'note_card.html', context)
 
 
 @login_required
@@ -89,6 +94,7 @@ def note_delete(request, note_id):
     note = get_object_or_404(Note, id=note_id, user=request.user)
     note.delete()
     return redirect('home')
+
 
 '''def home_view(request):
     if 
@@ -163,6 +169,3 @@ class NoteListCreate(generics.ListCreateAPIView):
 class NoteRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer'''
-
-
-

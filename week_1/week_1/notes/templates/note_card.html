@@ -3,6 +3,8 @@
 {% block title %}Карточка заметки{% endblock %}
 
 {% block content %}
+
+    <a href="{% url 'home' %}">Вернутся на главную страницу</a>
     <h2>{{ note.title }}</h2>
     <p>{{ note.description }}</p>
     <p>Создано: {{ note.created_at }}</p>
@@ -12,4 +14,5 @@
         {% csrf_token %}
         <button type="submit">Удалить</button>
     </form>
+
 {% endblock %}
